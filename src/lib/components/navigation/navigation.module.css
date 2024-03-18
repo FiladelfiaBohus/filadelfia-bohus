@@ -1,0 +1,5 @@
+.navigation {
+    inline-size: 100%;
+    block-size: var(--Nav-Height);
+    background-color: var(--White);
+}
