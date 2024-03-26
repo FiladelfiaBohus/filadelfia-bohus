@@ -6,20 +6,36 @@ import { HeroFragment } from "@/libs/types/generated/graphql";
 
 import s from "./hero.module.css";
 
-export const Hero = async ({ image, ingress, title }: HeroFragment) => {
-  const blurredImage = await getBase64(image.url);
+interface HeroProps extends HeroFragment {
+  priority?: boolean;
+}
+
+export const Hero: React.FC<HeroProps> = async ({
+  heroImage,
+  ingress,
+  priority,
+  title,
+}) => {
+  const blurredImage = await getBase64(heroImage.url);
+  let TitleComponent = <h2 className={s["title"]}>{title}</h2>;
+
+  if (priority) {
+    TitleComponent = <h1 className={s["title"]}>{title}</h1>;
+  }
+
   return (
     <div className={s["hero"]}>
       <span className={s["ingress"]}>{ingress}</span>
-      <h1 className={s["title"]}>{title}</h1>
+      {TitleComponent}
       <div className={s["image-wrapper"]}>
         <Image
-          src={image.url}
+          src={heroImage.url}
           alt="hej"
           fill
           style={{ objectFit: "cover", overflow: "hidden" }}
-          blurDataURL={blurredImage}
-          placeholder="blur"
+          // blurDataURL={blurredImage}
+          // placeholder="blur"
+          // priority={priority}
         />
       </div>
     </div>

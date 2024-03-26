@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
-import { NAV_LINK_FRAGMENT } from "../fragments";
+import { imageBasicFragment, NAV_LINK_FRAGMENT } from "../fragments";
 
 export const NAVIGATION_QUERY = gql`
   query NavigationQuery {
     navigation(where: { id: "cltvzxqzzjzmx07urcg4ircdf" }, stage: DRAFT) {
       id
       logo {
-        url
+        ...imageBasic
       }
       logoText
       menuItems {
@@ -15,5 +15,6 @@ export const NAVIGATION_QUERY = gql`
       }
     }
   }
+  ${imageBasicFragment}
   ${NAV_LINK_FRAGMENT}
 `;

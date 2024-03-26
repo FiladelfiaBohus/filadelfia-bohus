@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const IMAGE_BASIC_FRAGMENT = gql`
+export const imageBasicFragment = gql`
   fragment imageBasic on Asset {
     url
   }

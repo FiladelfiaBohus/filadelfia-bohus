@@ -1,8 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const PERSON_INFO_FRAGMENT = gql`
-  fragment personInfo on PersonInfo {
-    id
+export const staffFragment = gql`
+  fragment staff on Staff {
     name
     label
     image {

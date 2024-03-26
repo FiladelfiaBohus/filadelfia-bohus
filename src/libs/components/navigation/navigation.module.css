@@ -65,6 +65,7 @@
 
 .logo-wrapper {
     position: relative;
+    transition: all .2s ease;
 }
 
 

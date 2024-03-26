@@ -1,0 +1,17 @@
+.image-block {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    aspect-ratio: 16 / 9;
+    inline-size: 100%;
+    max-inline-size: 800px;
+    block-size: auto;
+    margin-inline: auto;
+    padding-inline: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+    inline-size: 100%;
+    block-size: 100%;
+    grid-column: span 12;
+}

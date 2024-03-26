@@ -5,7 +5,7 @@ export const HERO_FRAGMENT = gql`
     id
     ingress
     title
-    image {
+    heroImage: image {
       url
     }
   }

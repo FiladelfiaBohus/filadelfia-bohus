@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-import { HERO_FRAGMENT } from "../fragments";
+import { HERO_FRAGMENT, imageBlockFragment, textFragment } from "../fragments";
 
 const HOME_PAGE_FRAGMENT = gql`
   fragment homePage on HomePage {
@@ -9,9 +9,13 @@ const HOME_PAGE_FRAGMENT = gql`
     pageDescription
     content {
       ...hero
+      ...imageBlock
+      ...text
     }
   }
   ${HERO_FRAGMENT}
+  ${imageBlockFragment}
+  ${textFragment}
 `;
 
 export const HOME_PAGE_QUERY = gql`

@@ -13,14 +13,17 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    image {\n      url\n    }\n  }\n": types.HeroFragmentDoc,
+    "\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    heroImage: image {\n      url\n    }\n  }\n": types.HeroFragmentDoc,
     "\n  fragment imageBasic on Asset {\n    url\n  }\n": types.ImageBasicFragmentDoc,
+    "\n  fragment imageBlock on Image {\n    image {\n      url\n      height\n      width\n    }\n  }\n": types.ImageBlockFragmentDoc,
     "\n  fragment navLink on NavLink {\n    id\n    page {\n      slug\n      pageTitle\n    }\n  }\n": types.NavLinkFragmentDoc,
-    "\n  fragment personInfo on PersonInfo {\n    id\n    name\n    label\n    image {\n      url\n    }\n  }\n": types.PersonInfoFragmentDoc,
-    "\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n  }\n  \n": types.HomePageFragmentDoc,
+    "\n  fragment staffList on StaffList {\n    id\n    staffs {\n      ...staff\n    }\n  }\n  \n": types.StaffListFragmentDoc,
+    "\n  fragment staff on Staff {\n    name\n    label\n    image {\n      url\n    }\n  }\n": types.StaffFragmentDoc,
+    "\n  fragment text on Text {\n    id\n    title\n    body\n  }\n": types.TextFragmentDoc,
+    "\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...text\n    }\n  }\n  \n  \n  \n": types.HomePageFragmentDoc,
     "\n  query HomePage {\n    homePage(where: { id: \"cltvxcrkvi8xl07ure2zpwy86\" }, stage: DRAFT) {\n      ...homePage\n    }\n  }\n  \n": types.HomePageDocument,
-    "\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        url\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n": types.NavigationQueryDocument,
-    "\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n    slug\n  }\n  \n": types.PageFragmentDoc,
+    "\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        ...imageBasic\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n  \n": types.NavigationQueryDocument,
+    "\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...staffList\n      ...text\n    }\n    slug\n  }\n  \n  \n  \n  \n": types.PageFragmentDoc,
     "\n  query Page($slug: String) {\n    page(where: { slug: $slug }, stage: DRAFT) {\n      ...page\n    }\n  }\n  \n": types.PageDocument,
 };
 
@@ -41,7 +44,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    image {\n      url\n    }\n  }\n"): (typeof documents)["\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    image {\n      url\n    }\n  }\n"];
+export function graphql(source: "\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    heroImage: image {\n      url\n    }\n  }\n"): (typeof documents)["\n  fragment hero on Hero {\n    id\n    ingress\n    title\n    heroImage: image {\n      url\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -49,15 +52,27 @@ export function graphql(source: "\n  fragment imageBasic on Asset {\n    url\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  fragment imageBlock on Image {\n    image {\n      url\n      height\n      width\n    }\n  }\n"): (typeof documents)["\n  fragment imageBlock on Image {\n    image {\n      url\n      height\n      width\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  fragment navLink on NavLink {\n    id\n    page {\n      slug\n      pageTitle\n    }\n  }\n"): (typeof documents)["\n  fragment navLink on NavLink {\n    id\n    page {\n      slug\n      pageTitle\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment personInfo on PersonInfo {\n    id\n    name\n    label\n    image {\n      url\n    }\n  }\n"): (typeof documents)["\n  fragment personInfo on PersonInfo {\n    id\n    name\n    label\n    image {\n      url\n    }\n  }\n"];
+export function graphql(source: "\n  fragment staffList on StaffList {\n    id\n    staffs {\n      ...staff\n    }\n  }\n  \n"): (typeof documents)["\n  fragment staffList on StaffList {\n    id\n    staffs {\n      ...staff\n    }\n  }\n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n  }\n  \n"): (typeof documents)["\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n  }\n  \n"];
+export function graphql(source: "\n  fragment staff on Staff {\n    name\n    label\n    image {\n      url\n    }\n  }\n"): (typeof documents)["\n  fragment staff on Staff {\n    name\n    label\n    image {\n      url\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment text on Text {\n    id\n    title\n    body\n  }\n"): (typeof documents)["\n  fragment text on Text {\n    id\n    title\n    body\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...text\n    }\n  }\n  \n  \n  \n"): (typeof documents)["\n  fragment homePage on HomePage {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...text\n    }\n  }\n  \n  \n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -65,11 +80,11 @@ export function graphql(source: "\n  query HomePage {\n    homePage(where: { id:
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        url\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n"): (typeof documents)["\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        url\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n"];
+export function graphql(source: "\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        ...imageBasic\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n  \n"): (typeof documents)["\n  query NavigationQuery {\n    navigation(where: { id: \"cltvzxqzzjzmx07urcg4ircdf\" }, stage: DRAFT) {\n      id\n      logo {\n        ...imageBasic\n      }\n      logoText\n      menuItems {\n        ...navLink\n      }\n    }\n  }\n  \n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n    slug\n  }\n  \n"): (typeof documents)["\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n    }\n    slug\n  }\n  \n"];
+export function graphql(source: "\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...staffList\n      ...text\n    }\n    slug\n  }\n  \n  \n  \n  \n"): (typeof documents)["\n  fragment page on Page {\n    id\n    pageTitle\n    pageDescription\n    content {\n      ...hero\n      ...imageBlock\n      ...staffList\n      ...text\n    }\n    slug\n  }\n  \n  \n  \n  \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

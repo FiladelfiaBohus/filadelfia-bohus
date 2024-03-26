@@ -5,10 +5,7 @@ import Link from "next/link";
 
 import { useWindowScroll, useWindowSize } from "react-use";
 
-import {
-  ImageBasicFragment,
-  NavLinkFragment,
-} from "@/libs/types/generated/graphql";
+import { ImageBasicFragment, NavLinkFragment } from "@/libs/types";
 
 import s from "./navigation.module.css";
 
@@ -37,15 +34,11 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
   }
 
   function calculateY(scrollY: number, windowHeight: number) {
-    // Calculate the percentage of the scroll position relative to the window height
     const percentage = (scrollY / windowHeight) * 100;
+    const targetPercentage = 40;
+    const startY = 130;
+    const targetY = 56;
 
-    // Define the target percentage and corresponding y values
-    const targetPercentage = 40; // The target percentage where y should be 56
-    const startY = 130; // The starting y value
-    const targetY = 56; // The target y value
-
-    // Calculate the y value based on the target percentage
     let y = startY - ((startY - targetY) * percentage) / targetPercentage;
 
     // Ensure y stays within the range of 56 to 130
@@ -66,10 +59,10 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
 
   function calculateOpacity() {
     const percentage = calculateY(scrollY, height).percentage;
-    if (percentage < 40 && percentage * 0.1 < 0.7) {
+    if (percentage < 40 && percentage * 0.1 < 0.9) {
       return percentage * 0.1;
     }
-    return 0.7;
+    return 0.9;
   }
 
   const navStyles = {
@@ -91,13 +84,15 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
     >
       <div className={s["nav-inner"]}>
         <Link className={s["logo-link"]} href="/">
-          <div className={s["logo-wrapper"]}>
+          <div
+            className={s["logo-wrapper"]}
+            style={{ width: logoWidth, height: logoHeight }}
+          >
             <Image
               src={logo.url || ""}
               alt="Filadelfia Bohus logotyp"
-              height={logoHeight}
-              width={logoWidth}
               style={{ transition: ".3s ease" }}
+              fill
             />
           </div>
           <span
