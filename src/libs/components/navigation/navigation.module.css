@@ -66,6 +66,8 @@
 .logo-wrapper {
     position: relative;
     transition: all .2s ease;
+    block-size: 27px;
+    inline-size: 32px;
 }
 
 

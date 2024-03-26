@@ -17,7 +17,7 @@ export const ContentArea: React.FC<IContentAreaProps> = ({ content }) => {
       return <ImageBlock key={key} {...item} />;
     }
     if (isStaffList(item)) {
-      return <StaffList key={key} {...item} />;
+      return <StaffList key={key} priority={index !== -1} {...item} />;
     }
     if (isText(item)) {
       return <Text key={key} {...item} />;

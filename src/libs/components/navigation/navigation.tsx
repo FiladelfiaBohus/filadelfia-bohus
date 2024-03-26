@@ -18,8 +18,6 @@ interface INavigationProps {
 export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
   const { y: scrollY } = useWindowScroll();
   const { height } = useWindowSize();
-  const logoHeight = scrollY <= 60 ? 47 : 27;
-  const logoWidth = scrollY <= 60 ? 52 : 32;
 
   function linksMapper(item: NavLinkFragment, index: number) {
     if (!item || !item?.page) {
@@ -35,9 +33,12 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
 
   function calculateY(scrollY: number, windowHeight: number) {
     const percentage = (scrollY / windowHeight) * 100;
-    const targetPercentage = 40;
+    const targetPercentage = 50;
+    const actualPercentage = Math.min(Math.max(percentage, 0), 100);
     const startY = 130;
     const targetY = 56;
+
+    console.log(actualPercentage);
 
     let y = startY - ((startY - targetY) * percentage) / targetPercentage;
 
@@ -46,19 +47,19 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
 
     return {
       y,
-      percentage,
+      actualPercentage,
     };
   }
 
   function calculateBlurAmount() {
-    const percentage = calculateY(scrollY, height).percentage;
+    const percentage = calculateY(scrollY, height).actualPercentage;
     if (percentage >= 10) {
       return 10;
     } else return percentage;
   }
 
   function calculateOpacity() {
-    const percentage = calculateY(scrollY, height).percentage;
+    const percentage = calculateY(scrollY, height).actualPercentage;
     if (percentage < 40 && percentage * 0.1 < 0.9) {
       return percentage * 0.1;
     }
@@ -84,10 +85,7 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
     >
       <div className={s["nav-inner"]}>
         <Link className={s["logo-link"]} href="/">
-          <div
-            className={s["logo-wrapper"]}
-            style={{ width: logoWidth, height: logoHeight }}
-          >
+          <div className={s["logo-wrapper"]}>
             <Image
               src={logo.url || ""}
               alt="Filadelfia Bohus logotyp"

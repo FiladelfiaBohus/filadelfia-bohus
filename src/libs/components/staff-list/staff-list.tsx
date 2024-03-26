@@ -4,7 +4,11 @@ import { StaffListFragment, StaffFragment } from "@/types";
 
 import s from "./staff-list.module.css";
 
-export const StaffList: React.FC<StaffListFragment> = ({ staffs }) => {
+interface StaffListProps extends StaffListFragment {
+  priority?: boolean;
+}
+
+export const StaffList: React.FC<StaffListProps> = ({ priority, staffs }) => {
   function staffMapper(staff: StaffFragment, index: number) {
     if (!staff?.image?.url) {
       return null;
@@ -31,5 +35,9 @@ export const StaffList: React.FC<StaffListFragment> = ({ staffs }) => {
   if (!staffs?.length) {
     return null;
   }
-  return <div className={s["staff-list"]}>{staffs.map(staffMapper)}</div>;
+  return (
+    <div className={`${s["staff-list"]} ${priority && s["border-bottom"]}`}>
+      {staffs.map(staffMapper)}
+    </div>
+  );
 };
