@@ -9,6 +9,19 @@ interface IPageProps {
   };
 }
 
+export async function generateMetadata({ params }: IPageProps) {
+  const {
+    data: { page },
+  } = await getClient().query({
+    query: PAGE_QUERY,
+    variables: { slug: params.slugs[0] },
+  });
+  return {
+    title: `${page.pageTitle}`,
+    description: `${page.pageDescription || ""}`,
+  };
+}
+
 export default async function CatchAllPage({ params }: IPageProps) {
   const {
     data: { page },

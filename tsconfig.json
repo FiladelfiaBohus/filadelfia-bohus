@@ -19,10 +19,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/components": ["./src/lib/components"], 
-      "@/api": ["./src/lib/api"], 
-      "@/types": ["./src/lib/types/"],
-      "@/type-guards": ["./src/lib/types/type-guards"]
+      "@/api": ["./src/libs/api"], 
+      "@/components": ["./src/libs/components"],
+      "@/helpers": ["./src/libs/helpers"], 
+      "@/types": ["./src/libs/types/"],
+      "@/type-guards": ["./src/libs/types/type-guards"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

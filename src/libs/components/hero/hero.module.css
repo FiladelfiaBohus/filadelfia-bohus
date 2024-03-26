@@ -1,0 +1,75 @@
+.hero {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    block-size: auto;
+    max-block-size: calc(100vh - var(--nav-height));
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper {
+    inline-size: 100%;
+    block-size: 100%;
+    position: absolute;
+}
+
+ .image-wrapper::after {
+    content: '';
+    position: absolute;
+    inline-size: 100%;
+    block-size: 100%;
+    background-color: var(--overlay-dark);
+} 
+
+.title {
+    font-size: 30px;
+    color: var(--white);
+    text-shadow: -2px 2px 9px rgba(0, 0, 0, 0.39);
+
+    z-index: 2;
+}
+
+.ingress {
+    font-size: 20px;
+    color: var(--white);
+    text-shadow: -2px 2px 9px rgba(0, 0, 0, 0.39);
+
+    z-index: 2;
+}
+
+@media screen and (width >=400px) {
+    .hero {
+        aspect-ratio: 1;
+        max-block-size: calc(80vh - var(--nav-height));
+    }
+}
+
+
+@media screen and (width >= 768px) {
+    .hero {
+        aspect-ratio: 16 / 9;
+    }
+
+    .title {
+        font-size: 39px;
+    }
+
+    .ingress {
+        font-size: 29px;
+    }
+}
+
+@media screen and (width >=1025px) {
+
+    .title {
+        font-size: 48px;
+    }
+
+    .ingress {
+        font-size: 38px;
+    }
+}

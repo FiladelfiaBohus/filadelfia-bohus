@@ -1,8 +1,22 @@
 
 :root {
-  --Nav-Height: 56px;
+  --nav-height: 74px;
+  --nav-height-big: 130px;
 
-  --White: #fff;
+  /* Colors */
+  --white: #fff;
+  --black: #000;
+  --black-soft: #000000c0;
+  --overlay-dark: rgba(0, 0, 0, .2); 
+  --crimson-red: #680606;
+  --crimson-red-soft: #59081ece;
+  
+  --red: rgb(226, 81, 81);
+  --yellow: rgb(253, 193, 106);
+
+
+  /* Spacing */
+  --page-max-width: 1080px;
 }
 
 
@@ -15,5 +29,6 @@
 html,
 body {
   max-inline-size: 100vw;
-  overflow-x: hidden;
+
+  font-family: var(--font-montserrat);
 }

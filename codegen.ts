@@ -7,7 +7,7 @@ const config: CodegenConfig = {
   documents: ["./src/**/*.ts"],
   ignoreNoDocuments: true,
   generates: {
-    "src/lib/types/generated/": {
+    "src/libs/types/generated/": {
       preset: "client-preset",
       plugins: ["typescript", "typescript-document-nodes"],
       overwrite: true,

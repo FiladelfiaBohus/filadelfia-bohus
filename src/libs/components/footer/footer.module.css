@@ -1,0 +1,6 @@
+.footer {
+    background-color: var(--black);
+
+    inline-size: 100%;
+    min-height: 74px;
+}
