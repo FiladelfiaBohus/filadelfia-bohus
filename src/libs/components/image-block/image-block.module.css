@@ -3,7 +3,7 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
     aspect-ratio: 16 / 9;
     inline-size: 100%;
-    max-inline-size: 800px;
+    max-inline-size: var(--page-max-width);
     block-size: auto;
     margin-inline: auto;
     padding-inline: 20px;

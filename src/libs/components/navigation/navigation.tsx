@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-import { useWindowScroll, useWindowSize } from "react-use";
+import { useWindowSize, useWindowScroll } from "react-use";
 
 import { ImageBasicFragment, NavLinkFragment } from "@/libs/types";
+
+import { getBlockSize, getOpacity, getScrollPercentage } from "@/libs/helpers";
 
 import s from "./navigation.module.css";
 
@@ -16,8 +17,8 @@ interface INavigationProps {
 }
 
 export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
-  const { y: scrollY } = useWindowScroll();
-  const { height } = useWindowSize();
+  const { y } = useWindowScroll();
+  const { height: windowHeight } = useWindowSize();
 
   function linksMapper(item: NavLinkFragment, index: number) {
     if (!item || !item?.page) {
@@ -31,58 +32,18 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
     );
   }
 
-  function calculateY(scrollY: number, windowHeight: number) {
-    const percentage = (scrollY / windowHeight) * 100;
-    const targetPercentage = 50;
-    const actualPercentage = Math.min(Math.max(percentage, 0), 100);
-    const startY = 130;
-    const targetY = 56;
-
-    console.log(actualPercentage);
-
-    let y = startY - ((startY - targetY) * percentage) / targetPercentage;
-
-    // Ensure y stays within the range of 56 to 130
-    y = Math.max(targetY, Math.min(startY, y));
-
-    return {
-      y,
-      actualPercentage,
-    };
-  }
-
-  function calculateBlurAmount() {
-    const percentage = calculateY(scrollY, height).actualPercentage;
-    if (percentage >= 10) {
-      return 10;
-    } else return percentage;
-  }
-
-  function calculateOpacity() {
-    const percentage = calculateY(scrollY, height).actualPercentage;
-    if (percentage < 40 && percentage * 0.1 < 0.9) {
-      return percentage * 0.1;
-    }
-    return 0.9;
-  }
+  console.log(getScrollPercentage(windowHeight, y));
 
   const navStyles = {
-    height: calculateY(scrollY, height).y,
-    background: `linear-gradient(to bottom, rgba(0, 0, 0, ${
-      calculateOpacity() + 0.5
-    }), rgba(0, 0, 0, ${calculateOpacity()})`,
-    backdropFilter: `blur(${calculateBlurAmount()}px)`,
+    blockSize: `${getBlockSize(y)}px`,
+    background: `linear-gradient(to bottom, rgba(27, 27, 31, ${
+      0.85 + getOpacity(y)
+    }), rgba(27, 27, 31, ${getScrollPercentage(windowHeight, y)}))`,
+    backdropFilter: `blur(${getScrollPercentage(windowHeight, y) * 10}px)`,
   };
 
   return (
-    <nav
-      className={`${s["navigation"]}`}
-      style={{
-        blockSize: navStyles.height,
-        background: navStyles.background,
-        backdropFilter: navStyles.backdropFilter,
-      }}
-    >
+    <nav className={s["navigation"]} style={navStyles} role="navigation">
       <div className={s["nav-inner"]}>
         <Link className={s["logo-link"]} href="/">
           <div className={s["logo-wrapper"]}>
@@ -93,13 +54,7 @@ export const Navigation = ({ links, logo, logoText }: INavigationProps) => {
               fill
             />
           </div>
-          <span
-            className={`${s["logo-text"]} ${
-              scrollY <= 60 && s["logo-big-text"]
-            }`}
-          >
-            {logoText}
-          </span>
+          <span className={`${s["logo-text"]}`}>{logoText}</span>
         </Link>
 
         <div className={s["nav-right"]}>{links.map(linksMapper)}</div>

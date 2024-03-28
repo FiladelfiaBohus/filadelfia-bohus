@@ -1,6 +1,6 @@
 .staff-list {
     inline-size: 100%;
-    max-inline-size: 800px;
+    max-inline-size: var(--page-max-width);
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: 1fr;

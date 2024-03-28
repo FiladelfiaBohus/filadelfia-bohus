@@ -7,6 +7,7 @@
   --white: #fff;
   --black: #000;
   --black-soft: #000000c0;
+  --black-grayish: rgba(27, 27, 31);
   --overlay-dark: rgba(0, 0, 0, .2); 
   --crimson-red: #680606;
   --crimson-red-soft: #59081ece;
@@ -30,6 +31,6 @@
 html,
 body {
   max-inline-size: 100vw;
-
+  scroll-behavior: smooth;
   font-family: var(--font-montserrat);
 }

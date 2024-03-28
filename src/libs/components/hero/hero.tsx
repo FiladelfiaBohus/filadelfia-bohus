@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { getBase64 } from "@/libs/helpers";
+// import { getBase64 } from "@/libs/helpers";
 
 import { HeroFragment } from "@/libs/types/generated/graphql";
 
@@ -16,15 +16,17 @@ export const Hero: React.FC<HeroProps> = async ({
   priority,
   title,
 }) => {
-  const blurredImage = await getBase64(heroImage.url);
+  // const blurredImage = await getBase64(heroImage.url);
   let TitleComponent = <h2 className={s["title"]}>{title}</h2>;
+  let heroStyles = [s["hero"], s["margin"]].join(" ");
 
   if (priority) {
     TitleComponent = <h1 className={s["title"]}>{title}</h1>;
+    heroStyles = s["hero"];
   }
 
   return (
-    <div className={s["hero"]}>
+    <div className={heroStyles}>
       <span className={s["ingress"]}>{ingress}</span>
       {TitleComponent}
       <div className={s["image-wrapper"]}>

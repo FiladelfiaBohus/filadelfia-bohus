@@ -11,6 +11,7 @@
     justify-content: center;
 }
 
+
 .image-wrapper {
     inline-size: 100%;
     block-size: 100%;
@@ -39,6 +40,10 @@
     text-shadow: -2px 2px 9px rgba(0, 0, 0, 0.39);
 
     z-index: 2;
+}
+
+.margin {
+    margin-block: 48px;;
 }
 
 @media screen and (width >=400px) {
